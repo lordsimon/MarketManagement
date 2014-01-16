@@ -6,6 +6,8 @@ open NUnit.Framework
 open System
 open System.Diagnostics
 open RiskLib.OrderBook
+open RiskLib.MatchingEngine
+open RiskLib.OrderReceiver
 
 
 let mutable ob = new OrderBook("CheSund0123")
@@ -28,7 +30,7 @@ let [<When>] ``I match orders`` () =
     ob.matchOrders()
 
 let [<Then>] ``the bidSide size is (.*)`` (size: int) = 
-    Assert.True(true)
+    Assert.True(ob.bidSide.Length = size)
 
 let [<Then>] ``the askSide size is (.*)`` (size: int) = 
     Assert.True(ob.askSide.Length = size)
