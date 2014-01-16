@@ -46,9 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OrderBook.fs" />
-    <Compile Include="MatchingEngine.fs" />
-    <Compile Include="OrderReciever.fs" />
-    <Compile Include="TradingSystem.fs" />
     <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>
