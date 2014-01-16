@@ -1,0 +1,40 @@
+﻿Feature: Core functionality of trading system 
+
+Scenario 1: shouldTradeSamePrice
+	Given the following orders are added to the order book:
+      | Broker | Side | Qty | Price |
+      | A1     |  Bid | 100 | 10.5  |
+	  | A1     |  Ask | 100 | 10.5  |
+	When I match orders
+	Then the bidSide size is 0
+	And the askSide size is 0
+
+Scenarios 2: shouldTradeTwoLevels
+    Given the following orders are added to the order book:
+      | Broker | Side | Qty | Price |
+      | A1     |  Bid | 100 |  101  |
+	  | A1     |  Bid | 100 |  100  |
+	  | A1     |  Bid | 100 |   99  |
+	  | A1     |  Ask | 100 |   99  |
+	  | A1     |  Ask | 100 |  100  |
+	  | A1     |  Ask | 100 |  101  |
+	When I match orders
+	Then the bidSide size is 1
+	And the askSide size is 1
+	And the head of the back book is:
+      | Broker | Side | Qty | Price |
+	  | A1     |  Bid | 100 |   99  |
+    And the head of the lay book is:
+	  | Broker | Side | Qty | Price |
+	  | A1     |  Ask | 100 |  101  |
+
+
+Scenarios 3: Should split bid
+    Given the following orders are added to the order book:
+      | Broker | Side | Qty | Price |
+      | A1     |  Bid | 300 |  100  |
+	  | A1     |  Ask |1000 |  100  |
+	When I match orders
+	Then the bidSide size is 0
+	And the askSide size is 1
+	And the head of the askSide volume is 700
