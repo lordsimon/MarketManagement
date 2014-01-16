@@ -1,5 +1,7 @@
 lib/debug
 lib/release
+packages/*
+!packages/repositories.config
 Debug
 *.suo
 *.user
